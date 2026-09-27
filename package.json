@@ -1,0 +1,39 @@
+{
+  "name": "ipipai-mcp",
+  "version": "2.1.0",
+  "license": "MIT",
+  "description": "MCP server for IP attribute lookup: geolocation, ASN, ISP/ORG, coordinates, timezone, proxy/VPN/hosting detection, and RDAP WHOIS. Supports stdio + remote Streamable HTTP so any MCP-capable AI can call it.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "ipipai-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:http": "MCP_TRANSPORT=http node dist/index.js",
+    "start:both": "MCP_TRANSPORT=both node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "dev:http": "MCP_TRANSPORT=http tsx src/index.ts",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "express": "^4.19.2",
+    "zod": "^3.23.8",
+    "maxmind": "^4.1.2",
+    "ip2location-nodejs": "^9.5.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

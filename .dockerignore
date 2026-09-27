@@ -1,0 +1,17 @@
+node_modules
+dist
+*.mmdb
+*.MMDB
+*.BIN
+*.bin
+**/data/
+**/*.sqlite
+**/*.db
+.env
+.env.*
+*.log
+.git
+.gitignore
+.DS_Store
+.idea
+.vscode

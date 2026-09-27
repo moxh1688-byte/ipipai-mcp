@@ -1,0 +1,21 @@
+node_modules/
+dist/
+
+# P0 硬约束：开源包绝不能带任何 IP 数据库文件（MaxMind / IP2Location 授权不允许转发）
+*.mmdb
+*.MMDB
+*.BIN
+*.bin
+**/data/
+**/*.sqlite
+**/*.db
+
+# env / 密钥
+.env
+.env.*
+*.log
+
+# 系统/编辑器
+.DS_Store
+.idea/
+.vscode/
