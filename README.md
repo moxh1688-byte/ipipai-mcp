@@ -123,30 +123,14 @@ curl -i https://mcp.ipipai.com/mcp -H "Authorization: Bearer <MCP_AUTH_TOKEN>"
 
 ## IP 数据来源（公开）
 
-`ip_lookup` 等工具背后的 IP 属性结果由**多数据源融合**得出。以下为当前使用的全部数据来源：
-
-| # | 数据源 | 类型 | 用途 |
-|---|---|---|---|
-| 1 | **MaxMind GeoLite2**（City / ASN / Country，`.mmdb`） | 离线数据库 | 国家、省/州、城市、经纬度、时区、ASN 与 ISP 基础信息 |
-| 2 | **ip2region**（`.xdb`，官方 Node 绑定） | 离线数据库 | 中国大陆 / 港澳台 IP 精准定位（省、市、运营商），覆盖 MaxMind 结果 |
-| 3 | **IP2Location LITE DB11**（IPv4+IPv6 `.BIN`，~217MB） | 离线数据库（自动更新） | 境外 IP 精准定位：城市、邮编、ISP、使用类型（`usagetype`），版本每日检查、热重载 |
-| 4 | **firehol / blocklist-ipsets**（Tor、SOCKS、SSL 代理、Spamhaus DROP/EDROP） | 开源黑名单 | 代理 / Tor / 滥用 IP 匹配（导入 MySQL 管理） |
-| 5 | **ASN 类型表**（`asn-type.json`） | 本地映射表 | ASN → 类型（isp / mobile / hosting / education / government / business） |
-| 6 | **ip-api.com** | 在线 API | 代理 / 机房 / 移动标志（比本地数据库更准；带 429 退避 + 每日额度护栏） |
-| 7 | **IPinfo.io** | 在线 API | 地理与隐私属性补充 |
-| 8 | **VPNAPI.io** | 在线 API | VPN / 代理 / Tor 安全属性 |
-| 9 | **Shodan InternetDB** | 在线 API | 开放端口特征（辅助机房识别） |
-| 10 | **Globalping**（API） | 在线服务 | 全球分布式 Ping / Traceroute（`globalping` 工具） |
-| 11 | **RDAP 注册局**（IANA / RIR / ccTLD） | 在线协议 | WHOIS / 域名 / IP / ASN 注册信息（`whois_lookup`） |
-
-**离线优先 + 在线增强**：主流程基于本地离线数据库（1–5 项）完成定位与分类，在线数据源（6–9 项）按需增强代理 / 机房 / 隐私判断，任一在线源失败不影响主流程。
+工具背后的 IP 属性结果由**多数据源融合**得出。
 
 > 注：具体的融合评分算法与实现细节属于闭源核心，不在本仓库范围内（见「开源说明 & 边界」）。
 
 ## 开源说明 & 边界
 
 - **本仓库开源的是 MCP 服务的接口与接入方式**（协议、端点、鉴权、16 个工具清单、客户端配置），MIT 许可。
-- **数据来源公开**：见「IP 数据来源（公开）」章节——列出全部 11 个数据源及其用途，方便你了解 `ip_lookup` 结果基于哪些数据。
+- **数据来源不公开**：
 - **算法与采集/实现细节不公开**：多源融合的评分权重、分类规则、黑名单构建等属于产品核心，不在本仓库范围内。
 - 仓库不含任何 IP 数据库文件（`.mmdb` / `.xdb` / `.BIN` 等已在 `.gitignore` 中排除）。
 
